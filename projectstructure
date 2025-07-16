@@ -1,0 +1,72 @@
+#guest must use Mermaid to understand this chart.
+```mermaid
+graph TD
+    A[my_health_v001] --> B[lib]
+    A --> C[assets]
+    A --> D[test]
+    A --> E[build]
+    A --> F[android]
+    A --> G[ios]
+    A --> H[web]
+    
+    B --> I[main.dart]
+    B --> J[screens]
+    B --> K[services]
+    B --> L[models]
+    M --> T[Feature Modules]
+    N --> U[Core Utilities]
+    
+    subgraph "Configuration Files"
+        V[pubspec.yaml]
+        W[.env]
+        X[firebase.json]
+        Y[analysis_options.yaml]
+        Z[.gitignore]
+    end
+    
+    style A fill:#f9f,stroke:#333,stroke-width:4px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style J fill:#dfd,stroke:#333,stroke-width:2px
+    style K fill:#dfd,stroke:#333,stroke-width:2px
+    style L fill:#dfd,stroke:#333,stroke-width:2px
+    style M fill:#dfd,stroke:#333,stroke-width:2px
+    style N fill:#dfd,stroke:#333,stroke-width:2px
+```
+
+# Project Structure Analysis
+
+## 1. Main Components
+- **lib/**: Main source code directory
+- **assets/**: Resource files (images, fonts, etc.)
+- **test/**: Test files
+- **build/**: Build output directory
+- **Platform-specific directories**: android/, ios/, web/
+
+## 2. Source Code Structure (lib/)
+- **main.dart**: Application entry point
+- **screens/**: UI components and screens
+- **services/**: API and database services
+- **models/**: Data models
+- **features/**: Feature modules
+- **core/**: Core utilities and functionality
+- **firebase_options.dart**: Firebase configuration
+
+## 3. Configuration Files
+- **pubspec.yaml**: Project dependencies and configuration
+- **.env**: Environment variables
+- **firebase.json**: Firebase configuration
+- **analysis_options.yaml**: Code analysis settings
+- **.gitignore**: Git ignore rules
+
+## 4. Architecture Pattern
+The project follows a clean architecture pattern with clear separation of concerns:
+- **Presentation Layer**: screens/
+- **Business Logic Layer**: features/
+- **Data Layer**: models/, services/
+- **Core Layer**: core/
+
+## 5. Technology Stack
+- **Frontend**: Flutter/Dart
+- **Backend**: Firebase
+- **Development Tools**: Flutter DevTools
+- **Testing**: Flutter test framework

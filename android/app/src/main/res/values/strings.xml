@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">My Health</string>
+    <string name="health_permissions_description">Access to health data</string>
+    <string name="health_permissions_label">Health Permissions</string>
+</resources> 
