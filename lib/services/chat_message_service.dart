@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 
 class ChatMessengerService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -16,7 +17,9 @@ class ChatMessengerService {
         'isBot': false, // Tin nhắn từ người dùng
       });
     } catch (e) {
-      print('Lỗi khi gửi tin nhắn: $e');
+      if (kDebugMode) {
+        print('Lỗi khi gửi tin nhắn: $e');
+      }
     }
   }
 
@@ -38,7 +41,9 @@ class ChatMessengerService {
         'isBot': true, // Tin nhắn từ chatbot
       });
     } catch (e) {
-      print('Lỗi khi gửi tin nhắn từ chatbot: $e');
+      if (kDebugMode) {
+        print('Lỗi khi gửi tin nhắn từ chatbot: $e');
+      }
     }
   }
 
@@ -50,7 +55,9 @@ class ChatMessengerService {
         await doc.reference.delete();
       }
     } catch (e) {
-      print('Lỗi khi xóa lịch sử chat: $e');
+      if (kDebugMode) {
+        print('Lỗi khi xóa lịch sử chat: $e');
+      }
     }
   }
 }

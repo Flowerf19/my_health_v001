@@ -133,9 +133,9 @@ class LoginScreen extends StatelessWidget {
                   TextButton(
                     onPressed: () => Navigator.pushNamed(context, '/signup'),
                     child: RichText(
-                      text: TextSpan(
+                      text: const TextSpan(
                         text: 'Don\'t have an account? ',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: Color(0xFF221F1F),
                           fontSize: 14,
                           fontFamily: 'Poppins',
@@ -146,7 +146,7 @@ class LoginScreen extends StatelessWidget {
                         children: [
                           TextSpan(
                             text: 'Sign up',
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: Color(0xFF407CE2),
                               fontSize: 14,
                               fontFamily: 'Poppins',
@@ -190,13 +190,15 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  void _handleLogin(AuthProvider authProvider, BuildContext context) {
+  void _handleLogin(AuthProvider authProvider, BuildContext context) async {
     if (_formKey.currentState!.validate()) {
-      authProvider.signInWithEmail(
+      final user = await authProvider.signInWithEmail(
         _emailController.text.trim(),
         _passwordController.text.trim(),
-        context,
       );
+      if (user != null && context.mounted) {
+        Navigator.pushReplacementNamed(context, '/main');
+      }
     }
   }
 
@@ -205,9 +207,14 @@ class LoginScreen extends StatelessWidget {
     BuildContext context,
   ) async {
     try {
-      await authProvider.signInWithGoogle(context);
+      final user = await authProvider.signInWithGoogle();
+      if (user != null && context.mounted) {
+        Navigator.pushReplacementNamed(context, '/main');
+      }
     } catch (e) {
-      _showErrorSnackbar(context, 'Google sign in error: ${e.toString()}');
+      if (context.mounted) {
+        _showErrorSnackbar(context, 'Google sign in error: ${e.toString()}');
+      }
     }
   }
 

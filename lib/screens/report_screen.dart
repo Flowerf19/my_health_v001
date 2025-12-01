@@ -10,7 +10,7 @@ class ReportScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'Báo cáo sức khỏe', centerTitle: true),
+      appBar: const CustomAppBar(title: 'Báo cáo sức khỏe', centerTitle: true),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -29,7 +29,7 @@ class ReportScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Tổng quan', style: AppTextStyles.heading4),
+          const Text('Tổng quan', style: AppTextStyles.heading4),
           const SizedBox(height: 16),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -71,7 +71,8 @@ class ReportScreen extends StatelessWidget {
           width: 50,
           height: 50,
           decoration: BoxDecoration(
-            color: color.withOpacity(0.1),
+            // ignore: deprecated_member_use
+            color: color.withAlpha(26),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Icon(icon, color: color),
@@ -97,7 +98,7 @@ class ReportScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Chỉ số sức khỏe', style: AppTextStyles.heading4),
+          const Text('Chỉ số sức khỏe', style: AppTextStyles.heading4),
           const SizedBox(height: 16),
           _buildHealthMetricItem(
             label: 'Huyết áp',
@@ -154,7 +155,8 @@ class ReportScreen extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: BoxDecoration(
-              color: trendColor.withOpacity(0.1),
+              // ignore: deprecated_member_use
+              color: trendColor.withAlpha(26),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Text(
@@ -176,7 +178,7 @@ class ReportScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Hoạt động gần đây', style: AppTextStyles.heading4),
+          const Text('Hoạt động gần đây', style: AppTextStyles.heading4),
           const SizedBox(height: 16),
           _buildActivityItem(
             icon: Icons.directions_walk,
@@ -212,7 +214,8 @@ class ReportScreen extends StatelessWidget {
         width: 40,
         height: 40,
         decoration: BoxDecoration(
-          color: AppColors.primary.withOpacity(0.1),
+          // ignore: deprecated_member_use
+          color: AppColors.primary.withAlpha(26),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Icon(icon, color: AppColors.primary),

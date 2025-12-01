@@ -15,13 +15,13 @@ class CustomNavBar extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 79, // Chiều cao cố định của navbar
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: const Color(0x21000000),
+            color: Color(0x21000000),
             blurRadius: 4,
-            offset: const Offset(0, -3),
+            offset: Offset(0, -3),
             spreadRadius: 0,
           ),
         ],
@@ -53,6 +53,7 @@ class CustomNavBar extends StatelessWidget {
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), // Điều chỉnh padding
         decoration: BoxDecoration(
+          // ignore: deprecated_member_use
           color: isActive ? const Color(0xFF407CE2).withOpacity(0.1) : Colors.transparent,
           borderRadius: BorderRadius.circular(12),
         ),

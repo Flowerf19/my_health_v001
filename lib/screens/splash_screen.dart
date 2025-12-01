@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
-import 'onboarding1.dart';
-import '../core/routes/app_routes.dart';
 
+// ignore: library_private_types_in_public_api
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  SplashScreenState createState() => SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
     // Chuyển hướng sau 3 giây
     Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pushReplacementNamed(context, '/onboarding');
+      if (mounted) {
+        Navigator.pushReplacementNamed(context, '/onboarding');
+      }
     });
   }
 

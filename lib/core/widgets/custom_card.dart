@@ -28,7 +28,7 @@ class CustomCard extends StatelessWidget {
       elevation: elevation,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(borderRadius),
-        side: BorderSide(color: AppColors.border),
+        side: const BorderSide(color: AppColors.border),
       ),
       color: backgroundColor ?? AppColors.background,
       child: InkWell(

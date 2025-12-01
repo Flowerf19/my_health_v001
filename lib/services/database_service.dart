@@ -1,6 +1,7 @@
 // lib/services/database_service.dart
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import '../features/health_connect/models/biometric_model.dart';
 import '../models/chat_message_model.dart';
 
@@ -24,7 +25,9 @@ class DatabaseService {
           .collection('biometric_history')
           .add(data.toFirestore());
     } catch (e) {
-      print("Lỗi khi thêm dữ liệu: $e");
+      if (kDebugMode) {
+        print("Lỗi khi thêm dữ liệu: $e");
+      }
       rethrow;
     }
   }
@@ -61,7 +64,9 @@ class DatabaseService {
           .doc(entryId)
           .update(newData.toFirestore());
     } catch (e) {
-      print("Lỗi khi cập nhật: $e");
+      if (kDebugMode) {
+        print("Lỗi khi cập nhật: $e");
+      }
       rethrow;
     }
   }
@@ -79,7 +84,9 @@ class DatabaseService {
           .doc(entryId)
           .delete();
     } catch (e) {
-      print("Lỗi khi xóa: $e");
+      if (kDebugMode) {
+        print("Lỗi khi xóa: $e");
+      }
       rethrow;
     }
   }
@@ -93,7 +100,9 @@ class DatabaseService {
           .collection('ChatMessage')
           .add(message.toFirestore());
     } catch (e) {
-      print("Lỗi khi thêm tin nhắn: $e");
+      if (kDebugMode) {
+        print("Lỗi khi thêm tin nhắn: $e");
+      }
       rethrow;
     }
   }
@@ -130,7 +139,9 @@ class DatabaseService {
           .map((doc) => ChatMessage.fromFirestore(doc.data(), doc.id))
           .toList();
     } catch (e) {
-      print("Lỗi khi lấy lịch sử chat: $e");
+      if (kDebugMode) {
+        print("Lỗi khi lấy lịch sử chat: $e");
+      }
       rethrow;
     }
   }
@@ -149,7 +160,9 @@ class DatabaseService {
           .doc(messageId)
           .update(newMessage.toFirestore());
     } catch (e) {
-      print("Lỗi khi cập nhật tin nhắn: $e");
+      if (kDebugMode) {
+        print("Lỗi khi cập nhật tin nhắn: $e");
+      }
       rethrow;
     }
   }
@@ -167,7 +180,9 @@ class DatabaseService {
           .doc(messageId)
           .delete();
     } catch (e) {
-      print("Lỗi khi xóa tin nhắn: $e");
+      if (kDebugMode) {
+        print("Lỗi khi xóa tin nhắn: $e");
+      }
       rethrow;
     }
   }

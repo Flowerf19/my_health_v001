@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Onboarding1 extends StatelessWidget {
+  const Onboarding1({super.key});
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -11,7 +13,7 @@ class Onboarding1 extends StatelessWidget {
         width: screenWidth,
         height: screenHeight,
         clipBehavior: Clip.antiAlias,
-        decoration: BoxDecoration(color: Colors.white),
+        decoration: const BoxDecoration(color: Colors.white),
         child: Stack(
           children: [
             // Hình ảnh minh họa
@@ -33,11 +35,11 @@ class Onboarding1 extends StatelessWidget {
                 onTap: () {
                   Navigator.pushReplacementNamed(context, '/login');
                 },
-                child: Text(
+                child: const Text(
                   'Skip',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: const Color(0xFFA0A7B0),
+                    color: Color(0xFFA0A7B0),
                     fontSize: 14,
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w400,
@@ -52,10 +54,10 @@ class Onboarding1 extends StatelessWidget {
               top: screenHeight * 0.65, // 520/800
               child: SizedBox(
                 width: screenWidth * 0.833, // 300/360
-                child: Text(
+                child: const Text(
                   'Find a lot of specialist doctors in one place',
                   style: TextStyle(
-                    color: const Color(0xFF221F1F),
+                    color: Color(0xFF221F1F),
                     fontSize: 22,
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w700,
@@ -68,7 +70,7 @@ class Onboarding1 extends StatelessWidget {
             Positioned(
               left: 0,
               top: 0,
-              child: Container(
+              child: SizedBox(
                 width: screenWidth,
                 height: screenHeight * 0.056, // 45/800
                 child: Stack(
@@ -76,7 +78,7 @@ class Onboarding1 extends StatelessWidget {
                     Positioned(
                       left: screenWidth * 0.069, // 25/360
                       top: screenHeight * 0.015, // 12/800
-                      child: Container(
+                      child: SizedBox(
                         width: screenWidth * 0.861, // 310/360
                         height: screenHeight * 0.026, // 21/800
                         child: Stack(
@@ -84,7 +86,7 @@ class Onboarding1 extends StatelessWidget {
                             Positioned(
                               left: 0,
                               top: 0,
-                              child: Container(
+                              child: SizedBox(
                                 width: screenWidth * 0.083, // 30/360
                                 height: screenHeight * 0.026, // 21/800
                                 child: Stack(
@@ -94,11 +96,11 @@ class Onboarding1 extends StatelessWidget {
                                       top: 0,
                                       child: SizedBox(
                                         width: screenWidth * 0.083, // 30/360
-                                        child: Text(
+                                        child: const Text(
                                           '9:40',
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
-                                            color: const Color(0xFF221E1E),
+                                            color: Color(0xFF221E1E),
                                             fontSize: 14,
                                             fontFamily: 'Poppins',
                                             fontWeight: FontWeight.w400,
@@ -120,9 +122,9 @@ class Onboarding1 extends StatelessWidget {
                                   height: screenHeight * 0.014, // 11/800
                                   decoration: ShapeDecoration(
                                     shape: RoundedRectangleBorder(
-                                      side: BorderSide(
+                                      side: const BorderSide(
                                         width: 1,
-                                        color: const Color(0xFF221F1F),
+                                        color: Color(0xFF221F1F),
                                       ),
                                       borderRadius: BorderRadius.circular(2.67),
                                     ),
@@ -160,7 +162,7 @@ class Onboarding1 extends StatelessWidget {
                 onTap: () {
                   Navigator.pushReplacementNamed(context, '/onboarding2');
                 },
-                child: Container(
+                child: SizedBox(
                   width: screenWidth * 0.156, // 56/360
                   height: screenWidth * 0.156, // 56/360
                   child: Stack(
@@ -171,8 +173,8 @@ class Onboarding1 extends StatelessWidget {
                         child: Container(
                           width: screenWidth * 0.156, // 56/360
                           height: screenWidth * 0.156, // 56/360
-                          decoration: ShapeDecoration(
-                            color: const Color(0xFF407CE2),
+                          decoration: const ShapeDecoration(
+                            color: Color(0xFF407CE2),
                             shape: OvalBorder(),
                             shadows: [
                               BoxShadow(
@@ -203,7 +205,7 @@ class Onboarding1 extends StatelessWidget {
             Positioned(
               left: screenWidth * 0.083, // 30/360
               top: screenHeight * 0.775, // 620/800
-              child: Container(
+              child: SizedBox(
                 width: screenWidth * 0.081, // 29/360
                 height: screenHeight * 0.005, // 4/800
                 child: Stack(

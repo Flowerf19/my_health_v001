@@ -22,7 +22,7 @@ class ProfileHeader extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
-        color: AppColors.primary.withOpacity(0.1),
+        color: AppColors.primary.withAlpha(25),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(

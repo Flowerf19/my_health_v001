@@ -16,13 +16,13 @@ class AppRoutes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case '/':
-        return MaterialPageRoute(builder: (_) => SplashScreen());
+        return MaterialPageRoute(builder: (_) => const SplashScreen());
       case '/onboarding':
-        return MaterialPageRoute(builder: (_) => Onboarding1());
+        return MaterialPageRoute(builder: (_) => const Onboarding1());
       case '/onboarding2':
-        return MaterialPageRoute(builder: (_) => Onboarding2());
+        return MaterialPageRoute(builder: (_) => const Onboarding2());
       case '/onboarding3':
-        return MaterialPageRoute(builder: (_) => Onboarding3());
+        return MaterialPageRoute(builder: (_) => const Onboarding3());
       case '/login':
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case '/signup':
@@ -30,16 +30,16 @@ class AppRoutes {
       case '/forgot-password':
         return MaterialPageRoute(builder: (_) => ForgotPasswordScreen());
       case '/profile':
-        return MaterialPageRoute(builder: (_) => ProfileScreen());
+        return MaterialPageRoute(builder: (_) => const ProfileScreen());
       case '/home':
-        return MaterialPageRoute(builder: (_) => HomeScreen());
+        return MaterialPageRoute(builder: (_) => const HomeScreen());
       case '/chat':
         return MaterialPageRoute(builder: (_) => ChatScreen());
       case '/report':
-        return MaterialPageRoute(builder: (_) => ReportScreen());
+        return MaterialPageRoute(builder: (_) => const ReportScreen());
       case '/main':
         return MaterialPageRoute(
-          builder: (_) => MainScreen(),
+          builder: (_) => const MainScreen(),
         ); // Thêm MainScreen
       default:
         return MaterialPageRoute(

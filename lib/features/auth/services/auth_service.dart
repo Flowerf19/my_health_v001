@@ -1,9 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   // Đăng nhập bằng email
   Future<User?> signInWithEmail(String email, String password) async {
@@ -52,7 +52,9 @@ class AuthService {
       User? user = userCredential.user;
       return user;
     } catch (e) {
-      print("Lỗi Google Sign-In: $e");
+      if (kDebugMode) {
+        print("Lỗi Google Sign-In: $e");
+      }
       return null;
     }
   }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Onboarding2 extends StatelessWidget {
+  const Onboarding2({super.key});
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -10,7 +12,7 @@ class Onboarding2 extends StatelessWidget {
       body: Container(
         width: screenWidth,
         height: screenHeight,
-        decoration: BoxDecoration(color: Colors.white),
+        decoration: const BoxDecoration(color: Colors.white),
         child: Stack(
           children: [
             // Skip Button
@@ -21,7 +23,7 @@ class Onboarding2 extends StatelessWidget {
                 onTap: () {
                   Navigator.pushReplacementNamed(context, '/login');
                 },
-                child: Text(
+                child: const Text(
                   'Skip',
                   style: TextStyle(
                     color: Color(0xFFA0A7B0),
@@ -39,7 +41,7 @@ class Onboarding2 extends StatelessWidget {
               left: screenWidth * 0.083, // 30/360
               bottom: screenHeight * 0.175, // 140/800
               right: screenWidth * 0.083, // 30/360
-              child: Text(
+              child: const Text(
                 'Get advice only from a doctor you believe in.',
                 style: TextStyle(
                   color: Color(0xFF221F1F),
@@ -62,7 +64,7 @@ class Onboarding2 extends StatelessWidget {
                 child: Container(
                   width: screenWidth * 0.156, // 56/360
                   height: screenWidth * 0.156, // 56/360
-                  decoration: ShapeDecoration(
+                  decoration: const ShapeDecoration(
                     color: Color(0xFF407CE2),
                     shape: CircleBorder(),
                     shadows: [
@@ -95,7 +97,7 @@ class Onboarding2 extends StatelessWidget {
                     width: screenWidth * 0.037, // 13.17/360
                     height: screenHeight * 0.005, // 4/800
                     decoration: BoxDecoration(
-                      color: Color(0xFF407CE2).withOpacity(0.3),
+                      color: const Color(0xFF407CE2).withAlpha(77),
                       borderRadius: BorderRadius.circular(56),
                     ),
                   ),
@@ -104,7 +106,7 @@ class Onboarding2 extends StatelessWidget {
                     width: screenWidth * 0.037, // 13.17/360
                     height: screenHeight * 0.005, // 4/800
                     decoration: BoxDecoration(
-                      color: Color(0xFF407CE2),
+                      color: const Color(0xFF407CE2),
                       borderRadius: BorderRadius.circular(56),
                     ),
                   ),
@@ -120,7 +122,7 @@ class Onboarding2 extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     '9:40',
                     style: TextStyle(
                       color: Color(0xFF221E1E),
@@ -136,7 +138,8 @@ class Onboarding2 extends StatelessWidget {
                         height: screenHeight * 0.014, // 11/800
                         decoration: BoxDecoration(
                           border: Border.all(
-                            color: Color(0xFF221F1F).withOpacity(0.35),
+                            // ignore: deprecated_member_use
+                            color: const Color(0xFF221F1F).withAlpha(89),
                             width: 1,
                           ),
                           borderRadius: BorderRadius.circular(2.67),
@@ -146,9 +149,9 @@ class Onboarding2 extends StatelessWidget {
                           child: Container(
                             width: screenWidth * 0.039, // 14.06/360
                             height: screenHeight * 0.009, // 7.12/800
-                            margin: EdgeInsets.all(1),
+                            margin: const EdgeInsets.all(1),
                             decoration: BoxDecoration(
-                              color: Color(0xFF221F1F),
+                              color: const Color(0xFF221F1F),
                               borderRadius: BorderRadius.circular(1.33),
                             ),
                           ),

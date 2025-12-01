@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_health_v001/features/profile/screens/profile_screen.dart';
+import 'package:my_health_v002/features/profile/screens/profile_screen.dart';
 import 'chat_screen.dart';
 import 'home_screen.dart';
 import 'report_screen.dart';

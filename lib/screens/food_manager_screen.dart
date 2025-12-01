@@ -8,6 +8,8 @@ class FoodManagerScreen extends StatelessWidget {
   final _nameController = TextEditingController();
   final _caloriesController = TextEditingController();
 
+  FoodManagerScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Onboarding3 extends StatelessWidget {
+  const Onboarding3({super.key});
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -11,14 +13,14 @@ class Onboarding3 extends StatelessWidget {
         width: screenWidth,
         height: screenHeight,
         clipBehavior: Clip.antiAlias,
-        decoration: BoxDecoration(color: Colors.white),
+        decoration: const BoxDecoration(color: Colors.white),
         child: Stack(
           children: [
             // Thanh trạng thái
             Positioned(
               left: 0,
               top: 0,
-              child: Container(
+              child: SizedBox(
                 width: screenWidth,
                 height: screenHeight * 0.056, // 45/800
                 child: Stack(
@@ -26,7 +28,7 @@ class Onboarding3 extends StatelessWidget {
                     Positioned(
                       left: screenWidth * 0.069, // 25/360
                       top: screenHeight * 0.015, // 12/800
-                      child: Container(
+                      child: SizedBox(
                         width: screenWidth * 0.861, // 310/360
                         height: screenHeight * 0.026, // 21/800
                         child: Stack(
@@ -34,7 +36,7 @@ class Onboarding3 extends StatelessWidget {
                             Positioned(
                               left: 0,
                               top: 0,
-                              child: Container(
+                              child: SizedBox(
                                 width: screenWidth * 0.083, // 30/360
                                 height: screenHeight * 0.026, // 21/800
                                 child: Stack(
@@ -44,11 +46,11 @@ class Onboarding3 extends StatelessWidget {
                                       top: 0,
                                       child: SizedBox(
                                         width: screenWidth * 0.083, // 30/360
-                                        child: Text(
+                                        child: const Text(
                                           '9:40',
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
-                                            color: const Color(0xFF221E1E),
+                                            color: Color(0xFF221E1E),
                                             fontSize: 14,
                                             fontFamily: 'Poppins',
                                             fontWeight: FontWeight.w400,
@@ -70,9 +72,9 @@ class Onboarding3 extends StatelessWidget {
                                   height: screenHeight * 0.014, // 11/800
                                   decoration: ShapeDecoration(
                                     shape: RoundedRectangleBorder(
-                                      side: BorderSide(
+                                      side: const BorderSide(
                                         width: 1,
-                                        color: const Color(0xFF221F1F),
+                                        color: Color(0xFF221F1F),
                                       ),
                                       borderRadius: BorderRadius.circular(2.67),
                                     ),
@@ -108,11 +110,11 @@ class Onboarding3 extends StatelessWidget {
               top: screenHeight * 0.39, // 312/800
               child: SizedBox(
                 width: screenWidth * 0.511, // 184/360
-                child: Text(
+                child: const Text(
                   'Healthcare',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: const Color(0xFF223A6A),
+                    color: Color(0xFF223A6A),
                     fontSize: 25,
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w600,
@@ -126,11 +128,11 @@ class Onboarding3 extends StatelessWidget {
               top: screenHeight * 0.469, // 375/800
               child: SizedBox(
                 width: screenWidth * 0.833, // 300/360
-                child: Text(
+                child: const Text(
                   'Let\'s get started!',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: const Color(0xFF221F1F),
+                    color: Color(0xFF221F1F),
                     fontSize: 22,
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w700,
@@ -145,11 +147,11 @@ class Onboarding3 extends StatelessWidget {
               top: screenHeight * 0.509, // 407/800
               child: SizedBox(
                 width: screenWidth * 0.833, // 300/360
-                child: Text(
+                child: const Text(
                   'Login to Stay healthy and fit',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: const Color(0x99221F1F),
+                    color: Color(0x99221F1F),
                     fontSize: 16,
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w400,
@@ -177,7 +179,7 @@ class Onboarding3 extends StatelessWidget {
                     borderRadius: BorderRadius.circular(32),
                   ),
                 ),
-                child: Text(
+                child: const Text(
                   'Login',
                   style: TextStyle(
                     color: Colors.white,
@@ -203,14 +205,14 @@ class Onboarding3 extends StatelessWidget {
                     vertical: screenHeight * 0.019, // 15/800
                   ),
                   shape: RoundedRectangleBorder(
-                    side: BorderSide(width: 1, color: const Color(0xFF407CE2)),
+                    side: const BorderSide(width: 1, color: Color(0xFF407CE2)),
                     borderRadius: BorderRadius.circular(32),
                   ),
                 ),
-                child: Text(
+                child: const Text(
                   'Sign Up',
                   style: TextStyle(
-                    color: const Color(0xFF407CE2),
+                    color: Color(0xFF407CE2),
                     fontSize: 16,
                     fontFamily: 'Inter',
                     fontWeight: FontWeight.w500,

@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:health/health.dart';
 import 'package:flutter/services.dart';
 import '../../../models/heal_connect_model.dart';
-import '../models/biometric_model.dart';
 
 class HealthConnectService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -19,7 +19,9 @@ class HealthConnectService {
     try {
       // Sử dụng method checkPermissions mới để kiểm tra cài đặt và quyền
       final result = await platform.invokeMethod('checkPermissions');
-      print('Health Connect availability check: $result');
+      if (kDebugMode) {
+        print('Health Connect availability check: $result');
+      }
 
       if (result['installed'] != true) {
         throw PlatformException(
@@ -41,14 +43,20 @@ class HealthConnectService {
       if (result['permissionsGranted'] == true) {
         return true;
       } else {
-        print('Permissions not granted. Need to request permissions.');
+        if (kDebugMode) {
+          print('Permissions not granted. Need to request permissions.');
+        }
         return false;
       }
     } on PlatformException catch (e) {
-      print('Platform error checking Health Connect availability: $e');
+      if (kDebugMode) {
+        print('Platform error checking Health Connect availability: $e');
+      }
       rethrow;
     } catch (e) {
-      print('Error checking Health Connect availability: $e');
+      if (kDebugMode) {
+        print('Error checking Health Connect availability: $e');
+      }
       return false;
     }
   }
@@ -72,12 +80,16 @@ class HealthConnectService {
     try {
       // First check availability (only checks installation and compatibility)
       final isAvailable = await isHealthConnectAvailable();
-      print(
+      if (kDebugMode) {
+        print(
           'Health Connect availability before permission request: $isAvailable');
+      }
 
       // Request permissions through the plugin
       final result = await platform.invokeMethod('requestPermissions');
-      print('Permission request result: $result');
+      if (kDebugMode) {
+        print('Permission request result: $result');
+      }
 
       // Kết quả có thể là Map hoặc bool
       bool granted = false;
@@ -87,33 +99,45 @@ class HealthConnectService {
 
         // Xử lý các trường hợp đặc biệt
         if (result['fallback'] == true) {
-          print('Used fallback method to open Health Connect settings');
+          if (kDebugMode) {
+            print('Used fallback method to open Health Connect settings');
+          }
         }
 
         if (result['alternateMethod'] == true) {
-          print('Used alternate method to request permissions');
+          if (kDebugMode) {
+            print('Used alternate method to request permissions');
+          }
         }
       } else if (result is bool) {
         granted = result;
       }
 
       if (!granted) {
-        print(
+        if (kDebugMode) {
+          print(
             'Permissions not granted immediately. Will need to check again later.');
+        }
 
         // Đợi một chút rồi kiểm tra lại quyền
         await Future.delayed(const Duration(seconds: 2));
         final checkResult = await platform.invokeMethod('checkPermissions');
-        print('Re-checking permissions after request: $checkResult');
+        if (kDebugMode) {
+          print('Re-checking permissions after request: $checkResult');
+        }
 
         granted = checkResult['permissionsGranted'] == true;
       }
 
       if (granted) {
-        print('Permissions granted, connecting device');
+        if (kDebugMode) {
+          print('Permissions granted, connecting device');
+        }
         await connectDevice('default_device', 'Health Connect Device');
       } else {
-        print('Permissions were not granted after request');
+        if (kDebugMode) {
+          print('Permissions were not granted after request');
+        }
         throw PlatformException(
           code: 'PERMISSION_DENIED',
           message:
@@ -123,40 +147,54 @@ class HealthConnectService {
 
       return granted;
     } on PlatformException catch (e) {
-      print('Platform error requesting permissions: $e');
+      if (kDebugMode) {
+        print('Platform error requesting permissions: $e');
+      }
       rethrow;
     } catch (e) {
-      print('Error requesting permissions: $e');
+      if (kDebugMode) {
+        print('Error requesting permissions: $e');
+      }
       return false;
     }
   }
 
   Future<Map<String, dynamic>> getTodayHealthData() async {
     try {
-      print('Getting health data from Health Connect...');
+      if (kDebugMode) {
+        print('Getting health data from Health Connect...');
+      }
       final dynamic rawHealthData =
           await platform.invokeMethod('getHealthData');
 
-      print('Health data received - type: ${rawHealthData.runtimeType}');
+      if (kDebugMode) {
+        print('Health data received - type: ${rawHealthData.runtimeType}');
+      }
 
       // Kiểm tra dữ liệu nhận được
       if (rawHealthData == null) {
-        print('Health data is null');
+        if (kDebugMode) {
+          print('Health data is null');
+        }
         return <String, dynamic>{'error': 'Health data is null'};
       }
 
       if (rawHealthData is! Map) {
-        print('Health data is not a Map, it is: ${rawHealthData.runtimeType}');
+        if (kDebugMode) {
+          print('Health data is not a Map, it is: ${rawHealthData.runtimeType}');
+        }
         return <String, dynamic>{'error': 'Invalid data format'};
       }
 
       // Chuyển đổi thành Map<String, dynamic>
       final Map<String, dynamic> healthData =
-          Map<String, dynamic>.from(rawHealthData as Map);
+          Map<String, dynamic>.from(rawHealthData);
 
       // In các keys nhận được
       final keys = healthData.keys.toList();
-      print('Health data keys: $keys');
+      if (kDebugMode) {
+        print('Health data keys: $keys');
+      }
 
       // Lưu trực tiếp vào biometric_history thay vì cập nhật health_connect
       await _saveToBiometricHistory(healthData);
@@ -176,7 +214,9 @@ class HealthConnectService {
 
       return healthData;
     } catch (e) {
-      print('Error getting health data: $e');
+      if (kDebugMode) {
+        print('Error getting health data: $e');
+      }
       rethrow;
     }
   }
@@ -234,9 +274,13 @@ class HealthConnectService {
           .collection('biometric_history')
           .add(biometricData);
 
-      print('Đã lưu dữ liệu sức khỏe vào biometric_history');
+      if (kDebugMode) {
+        print('Đã lưu dữ liệu sức khỏe vào biometric_history');
+      }
     } catch (e) {
-      print('Lỗi khi lưu dữ liệu sức khỏe vào biometric_history: $e');
+      if (kDebugMode) {
+        print('Lỗi khi lưu dữ liệu sức khỏe vào biometric_history: $e');
+      }
       throw Exception('Không thể lưu dữ liệu sức khỏe: $e');
     }
   }
@@ -284,18 +328,16 @@ class HealthConnectService {
 
     // Đảm bảo health data là một Map không rỗng
     if (healthData.isEmpty) {
-      print('Warning: Empty health data being saved');
+      if (kDebugMode) {
+        print('Warning: Empty health data being saved');
+      }
       healthData = {'empty': true};
     }
 
-    // Nếu health data là null, thay thế bằng Map rỗng
-    if (healthData is! Map) {
-      print('Warning: Health data is not a Map, replacing with empty map');
-      healthData = {'invalid': true};
-    }
-
-    print(
+    if (kDebugMode) {
+      print(
         'Updating health data for device $deviceId with ${healthData.keys.length} keys');
+    }
 
     try {
       await _firestore
@@ -307,12 +349,18 @@ class HealthConnectService {
         'healthData': healthData,
         'lastSync': DateTime.now().toIso8601String(),
       });
-      print('Health data updated successfully in Firestore');
+      if (kDebugMode) {
+        print('Health data updated successfully in Firestore');
+      }
     } catch (e) {
-      print('Error updating health data in Firestore: $e');
+      if (kDebugMode) {
+        print('Error updating health data in Firestore: $e');
+      }
       // Có thể document chưa tồn tại, thử tạo mới
       try {
-        print('Trying to create new document for health data');
+        if (kDebugMode) {
+          print('Trying to create new document for health data');
+        }
         await _firestore
             .collection('users')
             .doc(user.uid)
@@ -326,9 +374,13 @@ class HealthConnectService {
           'lastSync': DateTime.now().toIso8601String(),
           'healthData': healthData,
         });
-        print('Created new document with health data');
+        if (kDebugMode) {
+          print('Created new document with health data');
+        }
       } catch (innerError) {
-        print('Failed to create document: $innerError');
+        if (kDebugMode) {
+          print('Failed to create document: $innerError');
+        }
         rethrow;
       }
     }
@@ -338,7 +390,9 @@ class HealthConnectService {
     try {
       await platform.invokeMethod('openHealthConnectSettings');
     } on PlatformException catch (e) {
-      print('Error opening Health Connect settings: $e');
+      if (kDebugMode) {
+        print('Error opening Health Connect settings: $e');
+      }
       rethrow;
     }
   }
@@ -422,7 +476,9 @@ class HealthConnectService {
 
   Future<bool> syncWeeklyHealthData() async {
     try {
-      print('Fetching weekly health data from Health Connect...');
+      if (kDebugMode) {
+        print('Fetching weekly health data from Health Connect...');
+      }
       final User? user = _auth.currentUser;
       if (user == null) {
         throw Exception('User not authenticated');
@@ -432,21 +488,29 @@ class HealthConnectService {
       final healthData = await platform.invokeMethod('getHealthData');
 
       if (healthData == null) {
-        print('Health data received is null');
+        if (kDebugMode) {
+          print('Health data received is null');
+        }
         return false;
       }
 
       if (healthData is! Map) {
-        print('Health data is not a Map: ${healthData.runtimeType}');
+        if (kDebugMode) {
+          print('Health data is not a Map: ${healthData.runtimeType}');
+        }
         return false;
       }
 
       if (healthData.isEmpty) {
-        print('Health data is empty');
+        if (kDebugMode) {
+          print('Health data is empty');
+        }
         return false;
       }
 
-      print('Health data keys: ${healthData.keys.join(", ")}');
+      if (kDebugMode) {
+        print('Health data keys: ${healthData.keys.join(", ")}');
+      }
 
       // Lưu dữ liệu vào biometric_history
       await _saveToBiometricHistory(healthData);
@@ -471,7 +535,9 @@ class HealthConnectService {
 
       return true;
     } catch (e) {
-      print('Error syncing weekly health data: $e');
+      if (kDebugMode) {
+        print('Error syncing weekly health data: $e');
+      }
       return false;
     }
   }
@@ -480,7 +546,9 @@ class HealthConnectService {
   Future<bool> _processDailySteps(
       Map<String, dynamic> dailySteps, String userId) async {
     try {
-      print('Processing daily steps data for ${dailySteps.length} days');
+      if (kDebugMode) {
+        print('Processing daily steps data for ${dailySteps.length} days');
+      }
 
       // Lấy thông tin biometric gần nhất
       final biometricSnapshot = await _firestore
@@ -526,8 +594,10 @@ class HealthConnectService {
         return '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
       }).toList();
 
-      print(
+      if (kDebugMode) {
+        print(
           'Found ${existingDateStrings.length} existing dates in biometric_history');
+      }
 
       // Xử lý cho từng ngày
       for (final entry in dailySteps.entries) {
@@ -536,7 +606,9 @@ class HealthConnectService {
 
         // Bỏ qua nếu đã có dữ liệu cho ngày này
         if (existingDateStrings.contains(dateStr)) {
-          print('Skipping $dateStr - already in biometric_history');
+          if (kDebugMode) {
+            print('Skipping $dateStr - already in biometric_history');
+          }
           continue;
         }
 
@@ -567,23 +639,31 @@ class HealthConnectService {
           // Commit batch nếu đã thêm 20 bản ghi
           if (addedCount >= 20) {
             await batch.commit();
-            print('Committed batch with $addedCount biometric records');
+            if (kDebugMode) {
+              print('Committed batch with $addedCount biometric records');
+            }
             addedCount = 0;
           }
         } catch (e) {
-          print('Error processing date $dateStr: $e');
+          if (kDebugMode) {
+            print('Error processing date $dateStr: $e');
+          }
         }
       }
 
       // Commit batch còn lại
       if (addedCount > 0) {
         await batch.commit();
-        print('Committed final batch with $addedCount biometric records');
+        if (kDebugMode) {
+          print('Committed final batch with $addedCount biometric records');
+        }
       }
 
       return true;
     } catch (e) {
-      print('Error processing daily steps: $e');
+      if (kDebugMode) {
+        print('Error processing daily steps: $e');
+      }
       return false;
     }
   }
@@ -594,7 +674,9 @@ class HealthConnectService {
       final user = _auth.currentUser;
       if (user == null) throw Exception('User not authenticated');
 
-      print('Fetching biometric history for user ${user.uid}');
+      if (kDebugMode) {
+        print('Fetching biometric history for user ${user.uid}');
+      }
 
       // Lấy biometric history từ Firestore, sắp xếp theo ngày mới nhất
       final snapshot = await _firestore
@@ -606,11 +688,15 @@ class HealthConnectService {
           .get();
 
       if (snapshot.docs.isEmpty) {
-        print('No biometric history found');
+        if (kDebugMode) {
+          print('No biometric history found');
+        }
         return [];
       }
 
-      print('Found ${snapshot.docs.length} biometric records');
+      if (kDebugMode) {
+        print('Found ${snapshot.docs.length} biometric records');
+      }
 
       // Chuyển đổi snapshot thành danh sách Map
       List<Map<String, dynamic>> biometricList = [];
@@ -632,7 +718,9 @@ class HealthConnectService {
 
       return biometricList;
     } catch (e) {
-      print('Error getting biometric history: $e');
+      if (kDebugMode) {
+        print('Error getting biometric history: $e');
+      }
       return [];
     }
   }
@@ -650,10 +738,14 @@ class HealthConnectService {
           .doc(id)
           .delete();
 
-      print('Biometric record $id deleted successfully');
+      if (kDebugMode) {
+        print('Biometric record $id deleted successfully');
+      }
       return true;
     } catch (e) {
-      print('Error deleting biometric record: $e');
+      if (kDebugMode) {
+        print('Error deleting biometric record: $e');
+      }
       return false;
     }
   }
@@ -665,7 +757,9 @@ class HealthConnectService {
       final user = _auth.currentUser;
       if (user == null) throw Exception('User not authenticated');
 
-      print('Updating biometric record $id');
+      if (kDebugMode) {
+        print('Updating biometric record $id');
+      }
 
       // Đảm bảo không cập nhật ID
       final updateData = Map<String, dynamic>.from(data);
@@ -678,10 +772,14 @@ class HealthConnectService {
           .doc(id)
           .update(updateData);
 
-      print('Biometric record updated successfully');
+      if (kDebugMode) {
+        print('Biometric record updated successfully');
+      }
       return true;
     } catch (e) {
-      print('Error updating biometric record: $e');
+      if (kDebugMode) {
+        print('Error updating biometric record: $e');
+      }
       return false;
     }
   }

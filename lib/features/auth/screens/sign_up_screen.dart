@@ -135,9 +135,9 @@ class SignupScreen extends StatelessWidget {
                   TextButton(
                     onPressed: () => Navigator.pop(context),
                     child: RichText(
-                      text: TextSpan(
+                      text: const TextSpan(
                         text: 'Already have an account? ',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: Color(0xFF221F1F),
                           fontSize: 14,
                           fontFamily: 'Poppins',
@@ -148,7 +148,7 @@ class SignupScreen extends StatelessWidget {
                         children: [
                           TextSpan(
                             text: 'Sign in',
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: Color(0xFF407CE2),
                               fontSize: 14,
                               fontFamily: 'Poppins',
@@ -206,9 +206,14 @@ class SignupScreen extends StatelessWidget {
     BuildContext context,
   ) async {
     try {
-      await authProvider.signInWithGoogle(context);
+      final user = await authProvider.signInWithGoogle();
+      if (user != null && context.mounted) {
+        Navigator.pushReplacementNamed(context, '/main');
+      }
     } catch (e) {
-      _showErrorSnackbar(context, 'Google sign up error: ${e.toString()}');
+      if (context.mounted) {
+        _showErrorSnackbar(context, 'Google sign up error: ${e.toString()}');
+      }
     }
   }
 

@@ -13,7 +13,7 @@ class ChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'Chat với bác sĩ', centerTitle: true),
+      appBar: const CustomAppBar(title: 'Chat với bác sĩ', centerTitle: true),
       body: Column(
         children: [
           Expanded(
@@ -75,7 +75,7 @@ class ChatScreen extends StatelessWidget {
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withAlpha(13), // 0.05 * 255 ≈ 13
             blurRadius: 10,
             offset: const Offset(0, -5),
           ),

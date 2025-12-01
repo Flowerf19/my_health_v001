@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 11,
                   decoration: ShapeDecoration(
                     shape: RoundedRectangleBorder(
-                      side: BorderSide(width: 1, color: AppColors.textPrimary),
+                      side: const BorderSide(width: 1, color: AppColors.textPrimary),
                       borderRadius: BorderRadius.circular(2.67),
                     ),
                   ),
@@ -64,73 +64,14 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildActivityItem({
-    required IconData icon,
-    required String label,
-    required String value,
-  }) {
-    return Column(
-      children: [
-        Container(
-          width: 60,
-          height: 60,
-          decoration: BoxDecoration(
-            color: AppColors.primary.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Icon(icon, color: AppColors.primary, size: 32),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          value,
-          style: AppTextStyles.bodyMedium.copyWith(fontWeight: FontWeight.w600),
-        ),
-        Text(
-          label,
-          style: AppTextStyles.bodySmall.copyWith(
-            color: AppColors.textSecondary,
-          ),
-        ),
-      ],
-    );
-  }
 
-  Widget _buildRecentActivityItem({
-    required IconData icon,
-    required String label,
-    required String value,
-    required String time,
-  }) {
-    return ListTile(
-      leading: Container(
-        width: 50,
-        height: 50,
-        decoration: BoxDecoration(
-          color: AppColors.primary.withOpacity(0.1),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Icon(icon, color: AppColors.primary, size: 24),
-      ),
-      title: Text(
-        label,
-        style: AppTextStyles.bodyMedium.copyWith(fontWeight: FontWeight.w600),
-      ),
-      subtitle: Text(
-        value,
-        style: AppTextStyles.bodySmall.copyWith(color: AppColors.textSecondary),
-      ),
-      trailing: Text(
-        time,
-        style: AppTextStyles.bodySmall.copyWith(color: AppColors.textSecondary),
-      ),
-    );
-  }
 
   Widget _buildHeartRateSection() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
       child: CustomCard(
-        backgroundColor: AppColors.primary.withOpacity(0.1),
+        // ignore: deprecated_member_use
+        backgroundColor: AppColors.primary.withAlpha(26),
         child: const SizedBox(
           height: 131,
           child: Stack(
@@ -164,12 +105,14 @@ class _HomeScreenState extends State<HomeScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           _buildHealthMetricItem(
-            color: AppColors.secondary.withOpacity(0.42),
+            // ignore: deprecated_member_use
+            color: AppColors.secondary.withAlpha(107),
             label: 'Blood Group',
             value: 'A+',
           ),
           _buildHealthMetricItem(
-            color: AppColors.warning.withOpacity(0.1),
+            // ignore: deprecated_member_use
+            color: AppColors.warning.withAlpha(26),
             label: 'Weight',
             value: '103lbs',
           ),
@@ -207,7 +150,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Latest report', style: AppTextStyles.heading4),
+          const Text('Latest report', style: AppTextStyles.heading4),
           const SizedBox(height: 20),
           _buildReportItem(
             icon: Icons.bedtime,
@@ -248,7 +191,7 @@ class _HomeScreenState extends State<HomeScreen> {
       decoration: ShapeDecoration(
         color: AppColors.background,
         shape: RoundedRectangleBorder(
-          side: BorderSide(width: 1, color: AppColors.divider),
+          side: const BorderSide(width: 1, color: AppColors.divider),
           borderRadius: BorderRadius.circular(6),
         ),
       ),
@@ -259,7 +202,8 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 53,
             margin: const EdgeInsets.only(left: 10),
             decoration: ShapeDecoration(
-              color: AppColors.primary.withOpacity(0.12),
+              // ignore: deprecated_member_use
+              color: AppColors.primary.withAlpha(31),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(6),
               ),

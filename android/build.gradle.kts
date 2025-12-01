@@ -7,7 +7,6 @@ buildscript {
 
     dependencies {
         // Add the Maven coordinates and latest version of the plugin
-        classpath ("com.google.gms:google-services:4.4.2")
         classpath ("com.android.tools.build:gradle:8.9.0")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.0")
     }
@@ -21,7 +20,8 @@ allprojects {
 }
 
 plugins {
-    id("com.google.firebase.appdistribution") version "5.1.1" apply false
+    id("com.google.gms.google-services") version "4.+" apply false
+    id("com.google.firebase.appdistribution") version "5.+" apply false
 }
 
 // Fix build directory location

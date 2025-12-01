@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import '../services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -13,11 +12,7 @@ class AuthProvider extends ChangeNotifier {
   String? get errorMessage => _errorMessage;
   User? get user => _user;
 
-  Future<void> signInWithEmail(
-    String email,
-    String password,
-    BuildContext context,
-  ) async {
+  Future<User?> signInWithEmail(String email, String password) async {
     _setLoading(true);
     try {
       User? user = await _authService.signInWithEmail(email, password);
@@ -25,9 +20,10 @@ class AuthProvider extends ChangeNotifier {
       _errorMessage = null;
 
       notifyListeners(); // Cập nhật UI
-      Navigator.pushReplacementNamed(context, '/main');
+      return user;
     } catch (e) {
       _errorMessage = e.toString();
+      return null;
     } finally {
       _setLoading(false);
     }
@@ -45,7 +41,7 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> signInWithGoogle(BuildContext context) async {
+  Future<User?> signInWithGoogle() async {
     _setLoading(true);
     try {
       User? user = await _authService.signInWithGoogle();
@@ -53,9 +49,10 @@ class AuthProvider extends ChangeNotifier {
       _errorMessage = null;
 
       notifyListeners(); // Cập nhật UI
-      Navigator.pushReplacementNamed(context, '/main');
+      return user;
     } catch (e) {
       _errorMessage = e.toString();
+      return null;
     } finally {
       _setLoading(false);
     }

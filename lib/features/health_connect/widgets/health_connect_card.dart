@@ -4,8 +4,6 @@ import '../services/health_connect_service.dart';
 import '../../../models/heal_connect_model.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_text_styles.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class HealthConnectCard extends StatelessWidget {
   const HealthConnectCard({super.key});
@@ -39,15 +37,15 @@ class HealthConnectCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
+            const Row(
               children: [
-                const Icon(Icons.fitness_center, color: AppColors.primary),
-                const SizedBox(width: 8),
+                Icon(Icons.fitness_center, color: AppColors.primary),
+                SizedBox(width: 8),
                 Text('Health Connect', style: AppTextStyles.heading4),
               ],
             ),
             const SizedBox(height: 16),
-            Text('Chưa kết nối với Health Connect', style: AppTextStyles.body1),
+            const Text('Chưa kết nối với Health Connect', style: AppTextStyles.body1),
             const SizedBox(height: 16),
             Row(
               children: [
@@ -167,7 +165,7 @@ class HealthConnectCard extends StatelessWidget {
               children: [
                 const Icon(Icons.fitness_center, color: AppColors.primary),
                 const SizedBox(width: 8),
-                Text('Health Connect', style: AppTextStyles.heading4),
+                const Text('Health Connect', style: AppTextStyles.heading4),
                 const Spacer(),
                 IconButton(
                   icon: const Icon(Icons.refresh),
@@ -225,7 +223,7 @@ class HealthConnectCard extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             if (data.healthData.isNotEmpty) ...[
-              Text('Dữ liệu sức khỏe:', style: AppTextStyles.body1),
+              const Text('Dữ liệu sức khỏe:', style: AppTextStyles.body1),
               const SizedBox(height: 8),
 
               // Hiển thị tổng số bước chân
@@ -281,14 +279,11 @@ class HealthConnectCard extends StatelessWidget {
 
               // Hiển thị nút để xem chi tiết
               OutlinedButton(
-                onPressed: () {
-                  // TODO: Điều hướng đến màn hình chi tiết dữ liệu sức khỏe
-                  ScaffoldMessenger.of(context).showSnackBar(
+                onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Text('Chức năng xem chi tiết đang phát triển'),
                     ),
-                  );
-                },
+                  ),
                 child: const Text('Xem chi tiết'),
               ),
 
@@ -405,7 +400,7 @@ class HealthConnectCard extends StatelessWidget {
                 label: const Text('Xem lịch sử biometric'),
               ),
             ] else ...[
-              Text(
+              const Text(
                 'Chưa có dữ liệu sức khỏe. Nhấn nút làm mới để đồng bộ.',
                 style: AppTextStyles.body2,
               ),
@@ -435,7 +430,8 @@ class HealthConnectCard extends StatelessWidget {
   Widget _buildErrorCard(BuildContext context, String error) {
     return Card(
       margin: const EdgeInsets.all(16),
-      color: AppColors.error.withOpacity(0.1),
+      // ignore: deprecated_member_use
+      color: AppColors.error.withAlpha(26),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
